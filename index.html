@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoCar Custom - គ្រឿងលេងរថយន្ត និងម៉ូតូ B2C & B2B</title>
+  
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Notification Bar -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <span><i class="fas fa-truck-fast"></i> ដឹកជញ្ជូនរហ័សទូទាំង ២៥ ខេត្ត-ក្រុង | ធានាគ្រឿងសុទ្ធ ១០០%</span>
+      <div class="top-links">
+        <a href="#tracking"><i class="fas fa-search-location"></i> តាមដានការដឹកជញ្ជូន</a>
+        <a href="#garages"><i class="fas fa-wrench"></i> បណ្តាញយានដ្ឋានដៃគូ</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container nav-container">
+      <a href="#" class="logo">
+        <i class="fas fa-shield-halved logo-icon"></i>
+        <span>MOTO<span class="highlight">CAR</span> CUSTOM</span>
+      </a>
+
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="ស្វែងរកគ្រឿងលេង ឧ. កាងដែក, ស៊ីមាំង Akrapovic...">
+      </div>
+
+      <div class="nav-actions">
+        <!-- B2C / B2B Switcher -->
+        <div class="mode-toggle" id="modeToggle">
+          <button class="mode-btn active" id="btnB2C" onclick="switchMode('B2C')">
+            <i class="fas fa-user"></i> B2C រាយ
+          </button>
+          <button class="mode-btn" id="btnB2B" onclick="switchMode('B2B')">
+            <i class="fas fa-warehouse"></i> B2B ដុំ
+          </button>
+        </div>
+
+        <button class="cart-trigger" onclick="openCart()">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-wrapper">
+      <div class="hero-text">
+        <div class="badge-tag">#1 Cambodia Automotive Custom Store</div>
+        <h1>កែច្នៃរថយន្ត និងម៉ូតូរបស់អ្នក<br><span class="highlight">តាមស្ទីលដែលអ្នកស្រឡាញ់</span></h1>
+        <p>វេទិកាលក់រាយ និងបោះដុំគ្រឿងលេង គ្រឿងតុបតែងកែច្នៃ ម៉ូតូ-ឡាន គុណភាពខ្ពស់ ធានាភាពត្រូវគ្នានៃម៉ូដែល ១០០% ជាមួយបណ្តាញយានដ្ឋានដំឡើងទូទាំងប្រទេស។</p>
+        <div class="hero-btns">
+          <a href="#catalog" class="btn btn-primary"><i class="fas fa-compass"></i> មើលកាតាឡុកទំនិញ</a>
+          <button class="btn btn-outline" onclick="openRFQModal()"><i class="fas fa-file-invoice-dollar"></i> ស្នើសុំតម្លៃបោះដុំ (RFQ)</button>
+        </div>
+      </div>
+
+      <!-- Vehicle Fitment Filter Box -->
+      <div class="filter-card">
+        <h3><i class="fas fa-filter text-orange"></i> តម្រងរើសតាមយានយន្ត (Fitment)</h3>
+        <p class="subtitle">ជ្រើសរើសដើម្បីប្រាកដថាទំនិញត្រូវនឹងម៉ូដែលរបស់អ្នក</p>
+
+        <form id="fitmentForm" onsubmit="applyFitment(event)">
+          <div class="form-group">
+            <label>ប្រភេទយានយន្ត</label>
+            <select id="fitmentType" onchange="onFitmentTypeChange()">
+              <option value="all">ទាំងអស់ (All Types)</option>
+              <option value="car">រថយន្ត (Car Custom)</option>
+              <option value="motorcycle">ម៉ូតូ (Motorcycle Custom)</option>
+            </select>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label>ម៉ាក (Brand)</label>
+              <select id="fitmentBrand" onchange="onFitmentBrandChange()">
+                <option value="all">ម៉ាកទាំងអស់</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>ម៉ូដែល (Model)</label>
+              <select id="fitmentModel">
+                <option value="all">ម៉ូដែលទាំងអស់</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>ឆ្នាំផលិត (Year)</label>
+            <select id="fitmentYear">
+              <option value="all">ឆ្នាំទាំងអស់</option>
+              <option value="2025">2024 - 2025</option>
+              <option value="2023">2021 - 2023</option>
+              <option value="2020">2018 - 2020</option>
+              <option value="older">ក្រោម 2018</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <i class="fas fa-check-circle"></i> ពិនិត្យគ្រឿងត្រូវគ្នា
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notice Banner for B2B Mode -->
+  <div id="b2bNotice" class="b2b-banner hidden">
+    <div class="container b2b-banner-inner">
+      <div>
+        <strong><i class="fas fa-bullhorn"></i> កំពុងបើកមុខងារ B2B WHOLESALE PORTAL</strong>
+        <p>អ្នកកំពុងមើលតម្លៃបោះដុំពិសេសសម្រាប់យានដ្ឋាន និងហាងលក់បន្ត (បញ្ជាទិញអប្បបរមា ៥ គ្រឿងឡើង)</p>
+      </div>
+      <button class="btn btn-sm btn-dark" onclick="openRFQModal()">ស្នើសុំ Quote ធំ (RFQ)</button>
+    </div>
+  </div>
+
+  <!-- Products Catalog Section -->
+  <section class="section" id="catalog">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2>កាតាឡុកគ្រឿងលេង និងសម្ភារកែច្នៃ</h2>
+          <p class="section-desc" id="catalogSubtitle">ទំនិញលក់រាយគុណភាពខ្ពស់ ធានារយៈពេល ១២ ខែ</p>
+        </div>
+        <div class="category-pills">
+          <button class="pill-btn active" onclick="filterCategory('all', this)">ទាំងអស់</button>
+          <button class="pill-btn" onclick="filterCategory('car', this)">គ្រឿងរថយន្ត</button>
+          <button class="pill-btn" onclick="filterCategory('motorcycle', this)">គ្រឿងម៉ូតូ</button>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" id="productGrid">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Garages & Installation -->
+  <section class="section section-dark" id="garages">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>បណ្តាញយានដ្ឋានដៃគូ & សេវាដំឡើង (Partner Garages)</h2>
+        <p class="section-desc">កុម្ម៉ង់គ្រឿងលេងរួច អាចជ្រើសរើសយកទៅដំឡើងនៅរោងជាងដៃគូដែលមានជំនាញច្បាស់លាស់</p>
+      </div>
+
+      <div class="garage-grid">
+        <div class="garage-card">
+          <div class="garage-img" style="background-image: url('https://images.unsplash.com/photo-1613214149922-f1809c99b414?auto=format&fit=crop&w=600&q=80')"></div>
+          <div class="garage-body">
+            <h3>IronClad 4x4 Offroad Shop</h3>
+            <p class="location"><i class="fas fa-map-marker-alt text-orange"></i> ខណ្ឌទួលគោក, ភ្នំពេញ</p>
+            <p class="desc">ឯកទេសតម្លើងកាងដែក ជើងក្រោម ឈ្នាន់ និងភ្លើងស្ព័រ Off-road រថយន្ត Pick-up/SUV</p>
+            <div class="tags"><span>Ford</span><span>Toyota</span><span>Isuzu</span></div>
+            <button class="btn btn-sm btn-primary" onclick="alert('បានកក់សេវាកម្មដំឡើងនៅ IronClad 4x4!')">កក់កន្លែងដំឡើង</button>
+          </div>
+        </div>
+
+        <div class="garage-card">
+          <div class="garage-img" style="background-image: url('https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=600&q=80')"></div>
+          <div class="garage-body">
+            <h3>MotoSpeed Custom Garage</h3>
+            <p class="location"><i class="fas fa-map-marker-alt text-orange"></i> ខណ្ឌបឹងកេងកង, ភ្នំពេញ</p>
+            <p class="desc">ឯកទេសកែច្នៃម៉ូតូធំ ស៊ីមាំងប្រណាំង ដៃហ្វ្រាំង CNC និងប្រព័ន្ធភ្លើង LED/Laser</p>
+            <div class="tags"><span>Yamaha</span><span>Honda</span><span>Kawasaki</span></div>
+            <button class="btn btn-sm btn-primary" onclick="alert('បានកក់សេវាកម្មដំឡើងនៅ MotoSpeed Custom!')">កក់កន្លែងដំឡើង</button>
+          </div>
+        </div>
+
+        <div class="garage-card">
+          <div class="garage-img" style="background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=600&q=80')"></div>
+          <div class="garage-body">
+            <h3>Angkor Auto Mod Station</h3>
+            <p class="location"><i class="fas fa-map-marker-alt text-orange"></i> ក្រុងសៀមរាប, ខេត្តសៀមរាប</p>
+            <p class="desc">ដេប៉ូចែកចាយ និងយានដ្ឋានដំឡើងកម្រាល VIP, Body kit និង spoiler គ្រប់ស៊េរី</p>
+            <div class="tags"><span>Lexus</span><span>Toyota</span><span>Mazda</span></div>
+            <button class="btn btn-sm btn-primary" onclick="alert('បានកក់សេវាកម្មដំឡើងនៅ Angkor Auto Mod!')">កក់កន្លែងដំឡើង</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Order Tracking Section -->
+  <section class="section" id="tracking">
+    <div class="container">
+      <div class="tracking-box">
+        <div class="tracking-header">
+          <i class="fas fa-shipping-fast tracking-icon"></i>
+          <div>
+            <h3>តាមដានស្ថានភាពដឹកជញ្ជូន (Live Order Tracking)</h3>
+            <p>បញ្ចូលលេខកូដកុម្ម៉ង់ទិញរបស់អ្នកដើម្បីពិនិត្យដំណាក់កាលដឹកជញ្ជូន</p>
+          </div>
+        </div>
+
+        <div class="tracking-input-group">
+          <input type="text" id="trackingInput" placeholder="ឧទាហរណ៍: MC-8892 ឬ B2B-1044" value="MC-8892">
+          <button class="btn btn-primary" onclick="checkTracking()"><i class="fas fa-search"></i> ពិនិត្យ</button>
+        </div>
+
+        <div class="timeline" id="trackingResult">
+          <div class="step completed">
+            <div class="dot"><i class="fas fa-check"></i></div>
+            <div class="step-info">
+              <strong>បានទទួលការបញ្ជាទិញ</strong>
+              <small>បានទូទាត់ជោគជ័យតាម KHQR</small>
+            </div>
+          </div>
+          <div class="step completed">
+            <div class="dot"><i class="fas fa-box"></i></div>
+            <div class="step-info">
+              <strong>កំពុងរៀបចំ និងវេចខ្ចប់</strong>
+              <small>ពិនិត្យបច្ចេកទេស និង Fitment មុនចេញ</small>
+            </div>
+          </div>
+          <div class="step active">
+            <div class="dot"><i class="fas fa-truck"></i></div>
+            <div class="step-info">
+              <strong>កំពុងដឹកជញ្ជូន</strong>
+              <small>ប្រគល់ជូនក្រុមហ៊ុនដឹកជញ្ជូន (J&T / Virak Buntham)</small>
+            </div>
+          </div>
+          <div class="step">
+            <div class="dot"><i class="fas fa-home"></i></div>
+            <div class="step-info">
+              <strong>បានប្រគល់ដល់ដៃ</strong>
+              <small>ដឹកដល់ទីតាំង ឬយានដ្ឋានដំឡើង</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#" class="logo">
+          <i class="fas fa-shield-halved logo-icon"></i>
+          <span>MOTO<span class="highlight">CAR</span> CUSTOM</span>
+        </a>
+        <p class="footer-about">ប្រភពផ្គត់ផ្គង់ និងលក់រាយគ្រឿងលេង គ្រឿងកែច្នៃយានយន្តឈានមុខគេនៅកម្ពុជា ជាមួយប្រព័ន្ធពិនិត្យភាពត្រូវគ្នា និងបណ្តាញរោងជាងស្តង់ដារ។</p>
+      </div>
+
+      <div>
+        <h4>ផ្នែកសេវាកម្ម</h4>
+        <ul class="footer-links">
+          <li><a href="#catalog">គ្រឿងតុបតែងរថយន្ត</a></li>
+          <li><a href="#catalog">គ្រឿងលេងម៉ូតូ</a></li>
+          <li><a href="#garages">បណ្តាញយានដ្ឋានដំឡើង</a></li>
+          <li><a href="#tracking">ប្រព័ន្ធតាមដានទំនិញ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>សម្រាប់ដៃគូ B2B</h4>
+        <ul class="footer-links">
+          <li><a href="javascript:void(0)" onclick="switchMode('B2B')">ច្រកទ្វារបោះដុំ (Wholesale)</a></li>
+          <li><a href="javascript:void(0)" onclick="openRFQModal()">ស្នើសុំតម្លៃពិសេស (RFQ)</a></li>
+          <li><a href="#">ចុះឈ្មោះជាយានដ្ឋានដៃគូ</a></li>
+          <li><a href="#">លក្ខខណ្ឌទូទាត់វិក្កយបត្រ ៣០ ថ្ងៃ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>ទំនាក់ទំនង</h4>
+        <p><i class="fas fa-map-marker-alt text-orange"></i> រាជធានីភ្នំពេញ, ប្រទេសកម្ពុជា</p>
+        <p><i class="fas fa-phone-alt text-orange"></i> +855 12 345 678 / +855 98 765 432</p>
+        <p><i class="fas fa-envelope text-orange"></i> sales@motocarcustom.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 MotoCar Custom Cambodia. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-out Shopping Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3><i class="fas fa-shopping-bag text-orange"></i> កន្ត្រកទំនិញរបស់អ្នក (<span id="cartCountDrawer">0</span>)</h3>
+      <button class="close-btn" onclick="closeCart()">&times;</button>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <div class="summary-line">
+          <span>តម្លៃសរុប (Subtotal):</span>
+          <span id="subtotalPrice">$0.00</span>
+        </div>
+        <div class="summary-line" id="installFeeRow">
+          <span>ថ្លៃសេវាដំឡើង (Installation):</span>
+          <span id="installFeePrice">$0.00</span>
+        </div>
+        <div class="summary-line total-line">
+          <span>ទឹកប្រាក់សរុប (Total):</span>
+          <span class="highlight" id="totalPrice">$0.00</span>
+        </div>
+      </div>
+
+      <div class="installation-option">
+        <label>
+          <input type="checkbox" id="addInstallation" onchange="toggleInstallation(this)"> 
+          <span>ត្រូវការសេវាដំឡើងនៅយានដ្ឋានដៃគូ (+$20.00)</span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-block" onclick="openCheckout()">
+        <i class="fas fa-lock"></i> ដំណើរការទូទាត់ប្រាក់ (Checkout)
+      </button>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal (KHQR / COD / B2B Invoice) -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>ទូទាត់ការបញ្ជាទិញ</h3>
+        <button class="close-btn" onclick="closeModal('checkoutModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="payment-tabs">
+          <button class="tab-btn active" onclick="switchPayTab('khqr', this)">
+            <i class="fas fa-qrcode"></i> KHQR Bakong
+          </button>
+          <button class="tab-btn" onclick="switchPayTab('cod', this)">
+            <i class="fas fa-hand-holding-dollar"></i> បង់ពេលទទួល (COD)
+          </button>
+          <button class="tab-btn" id="b2bInvoiceTab" onclick="switchPayTab('invoice', this)">
+            <i class="fas fa-file-invoice"></i> វិក្កយបត្រ B2B
+          </button>
+        </div>
+
+        <div id="payKHQR" class="payment-view">
+          <div class="qr-container">
+            <div class="khqr-badge">KHQR PayWay</div>
+            <!-- Dynamic QR Code generated via API -->
+            <img id="khqrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=KHQR_MOTOCAR_CUSTOM_PAYMENT" alt="Bakong KHQR">
+            <p class="qr-amount" id="qrAmountDisplay">$0.00</p>
+            <p class="qr-hint">ស្កេនទូទាត់ជាមួយកម្មវិធីធនាគារ (ABA, Acleda, Bakong...)</p>
+          </div>
+        </div>
+
+        <div id="payCOD" class="payment-view hidden">
+          <p class="alert-info"><i class="fas fa-info-circle"></i> លោកអ្នកអាចទូទាត់ជាសាច់ប្រាក់ដោយផ្ទាល់ទៅកាន់អ្នកដឹកជញ្ជូននៅពេលទំនិញទៅដល់ទីកន្លែង។</p>
+          <div class="form-group">
+            <label>លេខទូរស័ព្ទទទួលទំនិញ</label>
+            <input type="text" placeholder="012 345 678" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>អាសយដ្ឋានដឹកជញ្ជូន</label>
+            <textarea placeholder="ផ្ទះលេខ, ផ្លូវ, សង្កាត់, ខណ្ឌ/ក្រុង..." class="form-control" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div id="payInvoice" class="payment-view hidden">
+          <p class="alert-info"><i class="fas fa-building"></i> សម្រាប់គណនីដៃគូយានដ្ឋាន និងដេប៉ូដែលមានកិច្ចសន្យាផ្គត់ផ្គង់ (Net 30 Days terms)។</p>
+          <div class="form-group">
+            <label>ឈ្មោះយានដ្ឋាន / ក្រុមហ៊ុន</label>
+            <input type="text" placeholder="ឈ្មោះរោងជាងរបស់អ្នក..." class="form-control">
+          </div>
+          <div class="form-group">
+            <label>លេខសម្គាល់ដៃគូ (Partner ID)</label>
+            <input type="text" placeholder="MC-PARTNER-xxxx" class="form-control">
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-block mt-3" onclick="confirmPayment()">
+          <i class="fas fa-check"></i> បញ្ជាក់ការកុម្ម៉ង់ទិញ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RFQ Modal (Request for Quote for B2B) -->
+  <div class="modal-overlay" id="rfqModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>ស្នើសុំសម្រង់តម្លៃបោះដុំ (B2B RFQ Form)</h3>
+        <button class="close-btn" onclick="closeModal('rfqModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="submitRFQ(event)">
+          <div class="form-group">
+            <label>ឈ្មោះយានដ្ឋាន / ដេប៉ូចែកចាយ</label>
+            <input type="text" required placeholder="ឧ. រោងជាង ខ្មែរកែច្នៃ 4x4" class="form-control">
+          </div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>លេខទូរស័ព្ទ / Telegram</label>
+              <input type="text" required placeholder="012 xxx xxx" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>ទីតាំងខេត្ត-ក្រុង</label>
+              <input type="text" required placeholder="ភ្នំពេញ, សៀមរាប..." class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>មុខទំនិញ និងបរិមាណដែលត្រូវការ</label>
+            <textarea required rows="3" placeholder="បញ្ជាក់ឈ្មោះគ្រឿងបន្លាស់ និងចំនួន (ឧ. កាងដែក Ford Ranger ចំនួន ១០ ឈុត...)" class="form-control"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">
+            <i class="fas fa-paper-plane"></i> ផ្ញើសំណើ RFQ
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript file -->
+  <script src="app.js"></script>
+</body>
+</html>
